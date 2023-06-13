@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/wallpapersFragment"
+        android:icon="@drawable/baseline_photo_camera_back_24"
+        android:title="@string/wallpapers" />
+
+    <item
+        android:id="@+id/categoriesFragment"
+        android:icon="@drawable/baseline_category_24"
+        android:title="@string/categories" />
+
+    <item
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/baseline_favorite_border_24"
+        android:title="@string/favorites" />
+</menu>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Thousand And One Wallpapers</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="categories">Categories</string>
+    <string name="wallpapers">Wallpapers</string>
+    <string name="favorites">Favorites</string>
+</resources>

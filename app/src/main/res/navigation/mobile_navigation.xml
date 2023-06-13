@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/wallpapersFragment">
+
+    <fragment
+        android:id="@+id/wallpapersFragment"
+        android:name="com.avv2050soft.thousandandonewallpapers.presentation.ui.wallpapers.WallpapersFragment"
+        android:label="@string/wallpapers"
+        tools:layout="@layout/fragment_wallpapers" />
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.avv2050soft.thousandandonewallpapers.presentation.ui.categories.CategoriesFragment"
+        android:label="@string/categories"
+        tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.avv2050soft.thousandandonewallpapers.presentation.ui.favorites.FavoritesFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_favorites" />
+</navigation>
