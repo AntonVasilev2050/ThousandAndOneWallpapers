@@ -2,9 +2,12 @@ package com.avv2050soft.thousandandonewallpapers.presentation.ui
 
 import android.Manifest
 import android.app.DownloadManager
+import android.app.WallpaperManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -15,15 +18,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.avv2050soft.thousandandonewallpapers.R
+import com.avv2050soft.thousandandonewallpapers.databinding.DialogConfirmWallpaperSetupBinding
 import com.avv2050soft.thousandandonewallpapers.databinding.FragmentWallpaperDetailsBinding
-import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.Hit
 import com.avv2050soft.thousandandonewallpapers.presentation.ui.wallpapers.WALLPAPERS_URL_KEY
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.hideAppbarAndBottomView
+import com.avv2050soft.thousandandonewallpapers.presentation.utils.toastString
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import java.io.IOException
 
 @AndroidEntryPoint
 class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
@@ -31,6 +39,15 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
     private val viewModel by viewModels<WallpaperDetailsViewModel>()
 
     private var wallpapersLargeImageUrl: String? = null
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                applyWallpaper(wallpapersLargeImageUrl)
+            } else {
+                toastString(getString(R.string.permission_denied))
+            }
+        }
 
     private val requestDownloadPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -48,6 +65,26 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
                 }.show()
             }
         }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        wallpapersLargeImageUrl = arguments?.getString(WALLPAPERS_URL_KEY)
+        hideAppbarAndBottomView(requireActivity())
+        with(binding) {
+            Glide.with(imageViewWallpaper)
+                .load(wallpapersLargeImageUrl)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .error(R.drawable.baseline_error_24)
+                .into(imageViewWallpaper)
+            imageViewSetupWalls.setOnClickListener { conformWallpapersSetup() }
+            imageViewLikeWalls.setOnClickListener { }
+            imageViewDownloadWalls.setOnClickListener {
+                checkDownloadPermission(wallpapersLargeImageUrl)
+            }
+            imageViewShareWalls.setOnClickListener { shareWalls(wallpapersLargeImageUrl) }
+        }
+    }
 
     private fun checkDownloadPermission(wallpapersLargeImageUrl: String?) {
         if (ContextCompat.checkSelfPermission(
@@ -76,26 +113,50 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
         dm.enqueue(request)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        wallpapersLargeImageUrl = arguments?.getString(WALLPAPERS_URL_KEY)
-        hideAppbarAndBottomView(requireActivity())
-        with(binding) {
-            Glide.with(imageViewWallpaper)
-                .load(wallpapersLargeImageUrl)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .error(R.drawable.baseline_error_24)
-                .into(imageViewWallpaper)
-            imageViewSetupWalls.setOnClickListener { }
-            imageViewLikeWalls.setOnClickListener { }
-            imageViewDownloadWalls.setOnClickListener {
-                checkDownloadPermission(
-                    wallpapersLargeImageUrl
-                )
-            }
-            imageViewShareWalls.setOnClickListener { shareWalls(wallpapersLargeImageUrl) }
+    private fun conformWallpapersSetup() {
+        val confirmDialog = BottomSheetDialog(requireContext())
+        val bindingDialog = DialogConfirmWallpaperSetupBinding.inflate(layoutInflater)
+        confirmDialog.setContentView(bindingDialog.root)
+        bindingDialog.buttonNo.setOnClickListener { confirmDialog.dismiss() }
+        bindingDialog.buttonYes.setOnClickListener {
+            setWallpaper()
+            confirmDialog.dismiss()
         }
+        confirmDialog.show()
+    }
+
+    private fun setWallpaper() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.SET_WALLPAPER
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissionLauncher.launch(Manifest.permission.SET_WALLPAPER)
+        } else {
+            applyWallpaper(wallpapersLargeImageUrl)
+        }
+    }
+
+    private fun applyWallpaper(wallpapersLargeImageUrl: String?) {
+        val wallpaperManager = WallpaperManager.getInstance(requireContext())
+
+        Glide.with(requireContext())
+            .asBitmap()
+            .load(wallpapersLargeImageUrl)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    try {
+                        wallpaperManager.setBitmap(resource)
+                        toastString("Wallpaper was set up successfully")
+                    } catch (e: IOException) {
+                        toastString("Wallpaper setup failed: ${e.message}")
+                    }
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    // Optional: Perform any additional cleanup here
+                }
+            })
     }
 
     private fun shareWalls(wallpapersLargeImageUrl: String?) {

@@ -17,5 +17,9 @@
     <string name="permission_is_required_to_download_and_save_the_file">Permission is required to download and save the file</string>
     <string name="grant_permission">Grant permission\n\n\n</string>
     <string name="wallpapers_fullscreen">Wallpapers Fullscreen</string>
+    <string name="permission_denied">permission denied</string>
+    <string name="confirm_wallpapers_setup">Confirm wallpapers setup</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>
