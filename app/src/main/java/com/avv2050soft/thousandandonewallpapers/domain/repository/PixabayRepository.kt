@@ -1,7 +1,7 @@
 package com.avv2050soft.thousandandonewallpapers.domain.repository
 
-import com.avv2050soft.thousandandonewallpapers.domain.models.ApiResponse
+import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.ApiResponse
 
 interface PixabayRepository {
-    suspend fun getBackgrounds(q : String, page: Int) : ApiResponse
+    suspend fun getWallpapers(query: String, page: Int): ApiResponse
 }

@@ -1,70 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardViewItemSubreddit"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="2dp"
-    app:cardUseCompatPadding="true">
+    android:layout_height="300dp"
+    android:layout_margin="2dp">
+
+    <ImageView
+        android:id="@+id/imageViewWallpaperPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <ImageView
+        android:id="@+id/imageViewLogoPixabay"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        app:srcCompat="@drawable/logo_pixabay" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp">
-
-
-        <ImageView
-            android:id="@+id/imageViewWallpaperPreview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/black_transparent">
 
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/imageViewLike"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/baseline_favorite_border_24_white" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/like_no" />
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            android:id="@+id/imageViewDownload"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewLike"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewLike"
+            app:layout_constraintTop_toTopOf="@+id/imageViewLike"
             app:srcCompat="@drawable/baseline_download_24_white" />
 
         <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            android:id="@+id/imageViewShare"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewDownload"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewDownload"
+            app:layout_constraintTop_toTopOf="@+id/imageViewDownload"
             app:srcCompat="@drawable/baseline_share_24_white" />
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="@+id/imageViewWallpaperPreview"
-            app:layout_constraintTop_toTopOf="@+id/imageViewWallpaperPreview"
-            app:srcCompat="@drawable/logo_pixabay" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</FrameLayout>

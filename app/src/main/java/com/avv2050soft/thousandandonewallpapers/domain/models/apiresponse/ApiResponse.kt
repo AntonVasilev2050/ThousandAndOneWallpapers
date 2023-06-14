@@ -1,4 +1,4 @@
-package com.avv2050soft.thousandandonewallpapers.domain.models
+package com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse
 
 import com.google.gson.annotations.SerializedName
 

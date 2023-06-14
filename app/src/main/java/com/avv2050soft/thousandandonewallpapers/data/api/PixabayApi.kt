@@ -1,6 +1,6 @@
 package com.avv2050soft.thousandandonewallpapers.data.api
 
-import com.avv2050soft.thousandandonewallpapers.domain.models.ApiResponse
+import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.ApiResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,18 +12,18 @@ private const val API_KEY = "37247757-dbe7f2506a135d3dce0dadfa6"
 
 interface PixabayApi {
 
-    @GET("/")
-    suspend fun getBackgrounds(
-        @Query("key") apiKey : String = API_KEY,
+    @GET("api/")
+    suspend fun getWallpapers(
+        @Query("key") apiKey: String = API_KEY,
         @Query("orientation") orientation: String = "vertical",
         @Query("category") category: String = "backgrounds",
-        @Query("") safesearch: Boolean = true,
-        @Query("q") q: String = "",
-        @Query("page") page : Int,
-    ) : ApiResponse
+        @Query("safesearch") safesearch: Boolean = true,
+        @Query("q") q: String,
+        @Query("page") page: Int,
+    ): ApiResponse
 
     companion object {
-        private const val BASE_URL = "https://pixabay.com/api"
+        private const val BASE_URL = "https://pixabay.com/"
 
         fun create(): PixabayApi {
             val logger =
