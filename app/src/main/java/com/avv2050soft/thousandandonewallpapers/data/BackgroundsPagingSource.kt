@@ -10,17 +10,12 @@ class BackgroundsPagingSource @Inject constructor(
     private val repository: PixabayRepository
 ) : PagingSource<Int, Hit>() {
 
-    companion object {
-        private const val FIRST_PAGE = 1
-        var query = "new year wallpapers"
-    }
-
     override fun getRefreshKey(state: PagingState<Int, Hit>): Int = FIRST_PAGE
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Hit> {
-        var page = params.key ?: FIRST_PAGE
+        val page = params.key ?: FIRST_PAGE
         return kotlin.runCatching {
-            repository.getWallpapers(query = query, page = page).hits
+            repository.getWallpapers(category = category, query = query, page = page).hits
         }.fold(
             onSuccess = {
                 LoadResult.Page(
@@ -34,4 +29,11 @@ class BackgroundsPagingSource @Inject constructor(
             }
         )
     }
+
+    companion object {
+        private const val FIRST_PAGE = 1
+        var query = "Business"
+        var category = ""
+    }
+
 }

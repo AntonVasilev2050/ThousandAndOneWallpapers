@@ -6,7 +6,7 @@ import com.avv2050soft.thousandandonewallpapers.domain.repository.PixabayReposit
 import javax.inject.Inject
 
 class PixabayRepositoryImpl @Inject constructor() : PixabayRepository {
-    override suspend fun getWallpapers(query: String, page: Int): ApiResponse {
-        return PixabayApi.create().getWallpapers(q = query, page = page)
+    override suspend fun getWallpapers(category: String, query: String, page: Int): ApiResponse {
+        return PixabayApi.create().getWallpapers(category = category, q = query, page = page)
     }
 }

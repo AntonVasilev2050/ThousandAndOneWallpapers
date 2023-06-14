@@ -24,10 +24,10 @@ class CategoriesAdapter(
         val item = getItem(position)
         with(holder.binding){
             textViewCategoryName.text = item.name
-            val pictureSize = root.context.resources.displayMetrics.widthPixels / 2
+            val pictureSize = root.context.resources.displayMetrics.widthPixels / 4
             val requestOptions = RequestOptions()
                 .override(pictureSize, pictureSize)
-                .centerCrop()
+                .optionalFitCenter()
             Glide.with(imageViewCategoryPicture.context)
                 .load(item.picture)
                 .apply(requestOptions)

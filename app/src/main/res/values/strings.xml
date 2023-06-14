@@ -8,4 +8,14 @@
     <string name="favorites">Favorites</string>
     <string name="list_of_wallpapers">List of wallpapers</string>
     <string name="list_of_categories">List of categories</string>
+    <string name="picture_of_the_category">Picture of the category</string>
+    <string name="wallpaper_details_picture">Wallpaper details picture</string>
+    <string name="setup_wallpapers_icon">Setup wallpapers icon</string>
+    <string name="like_wallpapers_icon">Like wallpapers icon</string>
+    <string name="download_wallpapers_icon">Download wallpapers icon</string>
+    <string name="share_wallpapers_icon">Share wallpapers icon</string>
+    <string name="permission_is_required_to_download_and_save_the_file">Permission is required to download and save the file</string>
+    <string name="grant_permission">Grant permission\n\n\n</string>
+    <string name="wallpapers_fullscreen">Wallpapers Fullscreen</string>
+
 </resources>

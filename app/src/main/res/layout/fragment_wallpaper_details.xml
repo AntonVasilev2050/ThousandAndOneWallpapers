@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutWallpaperDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.WallpaperDetailsFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewWallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/wallpaper_details_picture"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutWallpaperDetailsControls"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:background="@color/black_transparent">
+
+            <ImageView
+                android:id="@+id/imageViewSetupWalls"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/setup_wallpapers_icon"
+                android:src="@drawable/baseline_add_to_home_screen_24_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageViewLikeWalls"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/like_wallpapers_icon"
+                android:src="@drawable/like_no"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewSetupWalls"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewSetupWalls"
+                app:layout_constraintTop_toTopOf="@+id/imageViewSetupWalls" />
+
+            <ImageView
+                android:id="@+id/imageViewDownloadWalls"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/download_wallpapers_icon"
+                android:src="@drawable/baseline_download_24_white"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewLikeWalls"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewLikeWalls"
+                app:layout_constraintTop_toTopOf="@+id/imageViewLikeWalls" />
+
+            <ImageView
+                android:id="@+id/imageViewShareWalls"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/share_wallpapers_icon"
+                android:src="@drawable/baseline_share_24_white"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewDownloadWalls"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewDownloadWalls"
+                app:layout_constraintTop_toTopOf="@+id/imageViewDownloadWalls" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

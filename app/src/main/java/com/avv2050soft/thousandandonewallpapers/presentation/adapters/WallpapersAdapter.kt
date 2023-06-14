@@ -19,19 +19,18 @@ class WallpapersAdapter(
 ) : PagingDataAdapter<Hit, WallpapersViewHolder>(DiffUtilWallpapers()) {
     override fun onBindViewHolder(holder: WallpapersViewHolder, position: Int) {
         val item = getItem(position)
-        with(holder.binding){
-            item?.let{
+        with(holder.binding) {
+            item?.let {item ->
                 Glide.with(imageViewWallpaperPreview)
-                    .load(it.previewURL)
+                    .load(item.previewURL)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .error(R.drawable.baseline_error_24)
                     .into(imageViewWallpaperPreview)
-
+                root.setOnClickListener { onClickItem.invoke(item) }
+                imageViewLike.setOnClickListener { onClickLike.invoke(item) }
+                imageViewDownload.setOnClickListener { onClickDownload.invoke(item) }
+                imageViewShare.setOnClickListener { onClickShare.invoke(item) }
             }
-            root.setOnClickListener { it?.let { onClickItem } }
-            imageViewLike.setOnClickListener { it?.let { onClickLike }}
-            imageViewDownload.setOnClickListener { it?.let { onClickDownload }}
-            imageViewShare.setOnClickListener { it?.let { onClickShare }}
         }
     }
 

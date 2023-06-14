@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.avv2050soft.thousandandonewallpapers.R
@@ -14,10 +15,16 @@ import com.avv2050soft.thousandandonewallpapers.databinding.FragmentWallpapersBi
 import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.Hit
 import com.avv2050soft.thousandandonewallpapers.presentation.adapters.CommonLoadStateAdapter
 import com.avv2050soft.thousandandonewallpapers.presentation.adapters.WallpapersAdapter
+import com.avv2050soft.thousandandonewallpapers.presentation.utils.showAppbar
+import com.avv2050soft.thousandandonewallpapers.presentation.utils.showAppbarAndBottomView
+import com.avv2050soft.thousandandonewallpapers.presentation.utils.showBottomView
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.toastString
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+
+const val WALLPAPERS_URL_KEY = "wallpapers url key"
 
 @AndroidEntryPoint
 class WallpapersFragment : Fragment(R.layout.fragment_wallpapers) {
@@ -32,7 +39,12 @@ class WallpapersFragment : Fragment(R.layout.fragment_wallpapers) {
     )
 
     private fun onClickItem(hit: Hit) {
-        TODO("Not yet implemented")
+        val bundle = Bundle()
+        bundle.putString(WALLPAPERS_URL_KEY, hit.largeImageURL)
+        findNavController().navigate(
+            R.id.action_wallpapersFragment_to_wallpaperDetailsFragment,
+            bundle
+        )
     }
 
     private fun onClickLike(hit: Hit) {
@@ -57,7 +69,13 @@ class WallpapersFragment : Fragment(R.layout.fragment_wallpapers) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerViewWallpapers.adapter = wallpapersAdapter.withLoadStateFooter(CommonLoadStateAdapter())
+        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
+        if (bottomNavView?.visibility == View.GONE){
+            showAppbarAndBottomView(requireActivity())
+        }
+
+        binding.recyclerViewWallpapers.adapter =
+            wallpapersAdapter.withLoadStateFooter(CommonLoadStateAdapter())
         binding.swipeRefresh.setOnRefreshListener { wallpapersAdapter.refresh() }
         wallpapersAdapter.loadStateFlow.onEach {
             binding.swipeRefresh.isRefreshing = it.refresh == LoadState.Loading

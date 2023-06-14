@@ -9,7 +9,11 @@
         android:id="@+id/wallpapersFragment"
         android:name="com.avv2050soft.thousandandonewallpapers.presentation.ui.wallpapers.WallpapersFragment"
         android:label="@string/wallpapers"
-        tools:layout="@layout/fragment_wallpapers" />
+        tools:layout="@layout/fragment_wallpapers" >
+        <action
+            android:id="@+id/action_wallpapersFragment_to_wallpaperDetailsFragment"
+            app:destination="@id/wallpaperDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/categoriesFragment"
@@ -22,4 +26,9 @@
         android:name="com.avv2050soft.thousandandonewallpapers.presentation.ui.favorites.FavoritesFragment"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/wallpaperDetailsFragment"
+        android:name="com.avv2050soft.thousandandonewallpapers.presentation.ui.WallpaperDetailsFragment"
+        android:label="@string/wallpapers_fullscreen"
+        tools:layout="@layout/fragment_wallpaper_details" />
 </navigation>

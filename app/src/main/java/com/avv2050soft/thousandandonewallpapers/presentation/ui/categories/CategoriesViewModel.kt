@@ -1,7 +1,5 @@
 package com.avv2050soft.thousandandonewallpapers.presentation.ui.categories
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.avv2050soft.thousandandonewallpapers.data.objects.Categories
 import com.avv2050soft.thousandandonewallpapers.domain.models.categories.Category
