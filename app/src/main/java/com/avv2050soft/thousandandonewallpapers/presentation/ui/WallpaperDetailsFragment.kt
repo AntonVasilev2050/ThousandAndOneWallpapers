@@ -3,16 +3,15 @@ package com.avv2050soft.thousandandonewallpapers.presentation.ui
 import android.Manifest
 import android.app.DownloadManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginTop
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.avv2050soft.thousandandonewallpapers.R
@@ -31,26 +30,26 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
     private val binding by viewBinding(FragmentWallpaperDetailsBinding::bind)
     private val viewModel by viewModels<WallpaperDetailsViewModel>()
 
-    private var wallpapersDetails: Hit? = null
+    private var wallpapersLargeImageUrl: String? = null
 
     private val requestDownloadPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                wallpapersDetails?.let { downloadPhoto(it) }
+                wallpapersLargeImageUrl?.let { downloadWalls(it) }
             } else {
                 Snackbar.make(
                     requireView().findViewById(R.id.constraintLayoutWallpaperDetailsControls),
                     getString(R.string.permission_is_required_to_download_and_save_the_file),
                     Snackbar.LENGTH_LONG
-                )
-                    .setAction(getString(R.string.grant_permission)) {
-                        wallpapersDetails?.let { wallpapersDetails -> checkDownloadPermission(wallpapersDetails) }
+                ).setAction(getString(R.string.grant_permission)) {
+                    wallpapersLargeImageUrl?.let { wallpapersLargeImageUrl ->
+                        checkDownloadPermission(wallpapersLargeImageUrl)
                     }
-                    .show()
+                }.show()
             }
         }
 
-    private fun checkDownloadPermission(wallpapersDetails: Hit) {
+    private fun checkDownloadPermission(wallpapersLargeImageUrl: String?) {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -58,21 +57,20 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
         ) {
             requestDownloadPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {
-            downloadPhoto(wallpapersDetails)
+            downloadWalls(wallpapersLargeImageUrl)
         }
     }
 
-    private fun downloadPhoto(wallpapersDetails: Hit) {
-        val url = wallpapersDetails.largeImageURL
-        val request = DownloadManager.Request(Uri.parse(url))
-            .setTitle("Wallpapers ${wallpapersDetails.tags}")
+    private fun downloadWalls(wallpapersLargeImageUrl: String?) {
+        val request = DownloadManager.Request(Uri.parse(wallpapersLargeImageUrl))
+            .setTitle("Wallpapers ${wallpapersLargeImageUrl?.substring(8..18)}")
             .setDescription("Downloading....")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
             .setAllowedOverMetered(true)
             .setMimeType("image/*")
             .setDestinationInExternalPublicDir(
                 Environment.DIRECTORY_DOWNLOADS,
-                File.separator + wallpapersDetails.id + ".jpg"
+                File.separator + wallpapersLargeImageUrl?.substring(8..18) + ".jpg"
             )
         val dm = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         dm.enqueue(request)
@@ -81,9 +79,9 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val wallpapersLargeImageUrl = arguments?.getString(WALLPAPERS_URL_KEY)
+        wallpapersLargeImageUrl = arguments?.getString(WALLPAPERS_URL_KEY)
         hideAppbarAndBottomView(requireActivity())
-        with(binding){
+        with(binding) {
             Glide.with(imageViewWallpaper)
                 .load(wallpapersLargeImageUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
@@ -91,9 +89,22 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
                 .into(imageViewWallpaper)
             imageViewSetupWalls.setOnClickListener { }
             imageViewLikeWalls.setOnClickListener { }
-            imageViewDownloadWalls.setOnClickListener {  }
-            imageViewShareWalls.setOnClickListener {  }
+            imageViewDownloadWalls.setOnClickListener {
+                checkDownloadPermission(
+                    wallpapersLargeImageUrl
+                )
+            }
+            imageViewShareWalls.setOnClickListener { shareWalls(wallpapersLargeImageUrl) }
         }
+    }
 
+    private fun shareWalls(wallpapersLargeImageUrl: String?) {
+        val wallpapersLink = Uri.parse(wallpapersLargeImageUrl)
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_SUBJECT, "a pixabay picture")
+        intent.putExtra(Intent.EXTRA_TEXT, "$wallpapersLink")
+        val chosenIntent = Intent.createChooser(intent, "Share the picture")
+        startActivity(chosenIntent)
     }
 }

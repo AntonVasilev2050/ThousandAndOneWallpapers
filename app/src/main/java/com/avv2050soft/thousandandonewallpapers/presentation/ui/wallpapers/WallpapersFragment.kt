@@ -15,9 +15,7 @@ import com.avv2050soft.thousandandonewallpapers.databinding.FragmentWallpapersBi
 import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.Hit
 import com.avv2050soft.thousandandonewallpapers.presentation.adapters.CommonLoadStateAdapter
 import com.avv2050soft.thousandandonewallpapers.presentation.adapters.WallpapersAdapter
-import com.avv2050soft.thousandandonewallpapers.presentation.utils.showAppbar
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.showAppbarAndBottomView
-import com.avv2050soft.thousandandonewallpapers.presentation.utils.showBottomView
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.toastString
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
