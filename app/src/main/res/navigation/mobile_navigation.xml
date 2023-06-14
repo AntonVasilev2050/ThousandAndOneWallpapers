@@ -25,7 +25,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.avv2050soft.thousandandonewallpapers.presentation.ui.favorites.FavoritesFragment"
         android:label="@string/favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_wallpaperDetailsFragment"
+            app:destination="@id/wallpaperDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/wallpaperDetailsFragment"
         android:name="com.avv2050soft.thousandandonewallpapers.presentation.ui.WallpaperDetailsFragment"

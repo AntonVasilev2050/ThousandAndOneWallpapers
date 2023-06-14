@@ -32,7 +32,7 @@ class BackgroundsPagingSource @Inject constructor(
 
     companion object {
         private const val FIRST_PAGE = 1
-        var query = "Business"
+        var query = ""
         var category = ""
     }
 

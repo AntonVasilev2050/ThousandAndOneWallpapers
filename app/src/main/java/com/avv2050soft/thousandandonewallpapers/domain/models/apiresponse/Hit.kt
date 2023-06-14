@@ -47,5 +47,8 @@ data class Hit(
     @SerializedName("webformatURL")
     val webformatURL: String,
     @SerializedName("webformatWidth")
-    val webformatWidth: Int
+    val webformatWidth: Int,
+
+    @SerializedName("isFavorite")
+    var isFavorite : Boolean,
 )

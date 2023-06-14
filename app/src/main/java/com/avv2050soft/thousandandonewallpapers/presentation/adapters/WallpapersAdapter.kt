@@ -13,7 +13,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class WallpapersAdapter(
     private val onClickItem: (Hit) -> Unit,
-    private val onClickLike: (Hit) -> Unit,
+    private val onClickLike: (Hit, position: Int) -> Unit,
     private val onClickDownload: (Hit) -> Unit,
     private val onClickShare: (Hit) -> Unit,
 ) : PagingDataAdapter<Hit, WallpapersViewHolder>(DiffUtilWallpapers()) {
@@ -26,8 +26,15 @@ class WallpapersAdapter(
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .error(R.drawable.baseline_error_24)
                     .into(imageViewWallpaperPreview)
+                if(item.isFavorite){
+                    imageViewLike.setImageResource(R.drawable.like_yes)
+                }else{
+                    imageViewLike.setImageResource(R.drawable.like_no)
+                }
                 root.setOnClickListener { onClickItem.invoke(item) }
-                imageViewLike.setOnClickListener { onClickLike.invoke(item) }
+                imageViewLike.setOnClickListener {
+                    onClickLike.invoke(item, position)
+                }
                 imageViewDownload.setOnClickListener { onClickDownload.invoke(item) }
                 imageViewShare.setOnClickListener { onClickShare.invoke(item) }
             }

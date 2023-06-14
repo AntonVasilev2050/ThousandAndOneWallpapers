@@ -21,5 +21,6 @@
     <string name="confirm_wallpapers_setup">Confirm wallpapers setup</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="list_of_favorite_wallpapers">List of favorite wallpapers</string>
 
 </resources>
