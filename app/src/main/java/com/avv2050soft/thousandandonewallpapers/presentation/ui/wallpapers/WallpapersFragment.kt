@@ -15,6 +15,7 @@ import com.avv2050soft.thousandandonewallpapers.databinding.FragmentWallpapersBi
 import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.Hit
 import com.avv2050soft.thousandandonewallpapers.presentation.adapters.CommonLoadStateAdapter
 import com.avv2050soft.thousandandonewallpapers.presentation.adapters.WallpapersAdapter
+import com.avv2050soft.thousandandonewallpapers.presentation.utils.shareUrl
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.showAppbarAndBottomView
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.toastString
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -54,15 +55,7 @@ class WallpapersFragment : Fragment(R.layout.fragment_wallpapers) {
     }
 
     private fun onClickShare(hit: Hit) {
-        val intent = Intent(Intent.ACTION_SEND).also {
-            it.putExtra(Intent.EXTRA_TEXT, hit.largeImageURL)
-            it.type = "text/plain"
-        }
-        try {
-            requireContext().startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            toastString(e.message)
-        }
+        shareUrl(hit.largeImageURL)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

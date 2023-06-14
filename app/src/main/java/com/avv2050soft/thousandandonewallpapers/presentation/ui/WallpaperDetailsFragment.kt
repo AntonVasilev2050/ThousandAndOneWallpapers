@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.DownloadManager
 import android.app.WallpaperManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -22,6 +21,7 @@ import com.avv2050soft.thousandandonewallpapers.databinding.DialogConfirmWallpap
 import com.avv2050soft.thousandandonewallpapers.databinding.FragmentWallpaperDetailsBinding
 import com.avv2050soft.thousandandonewallpapers.presentation.ui.wallpapers.WALLPAPERS_URL_KEY
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.hideAppbarAndBottomView
+import com.avv2050soft.thousandandonewallpapers.presentation.utils.shareUrl
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.toastString
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -82,7 +82,7 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
             imageViewDownloadWalls.setOnClickListener {
                 checkDownloadPermission(wallpapersLargeImageUrl)
             }
-            imageViewShareWalls.setOnClickListener { shareWalls(wallpapersLargeImageUrl) }
+            imageViewShareWalls.setOnClickListener { shareUrl(wallpapersLargeImageUrl) }
         }
     }
 
@@ -159,13 +159,14 @@ class WallpaperDetailsFragment : Fragment(R.layout.fragment_wallpaper_details) {
             })
     }
 
-    private fun shareWalls(wallpapersLargeImageUrl: String?) {
-        val wallpapersLink = Uri.parse(wallpapersLargeImageUrl)
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_SUBJECT, "a pixabay picture")
-        intent.putExtra(Intent.EXTRA_TEXT, "$wallpapersLink")
-        val chosenIntent = Intent.createChooser(intent, "Share the picture")
-        startActivity(chosenIntent)
-    }
+//    private fun shareWalls(wallpapersLargeImageUrl: String?) {
+//        val wallpapersLink = Uri.parse(wallpapersLargeImageUrl)
+//        val intent = Intent(Intent.ACTION_SEND)
+//        intent.type = "text/plain"
+//        intent.putExtra(Intent.EXTRA_SUBJECT, "a pixabay picture")
+//        intent.putExtra(Intent.EXTRA_TEXT, "$wallpapersLink")
+//        val chosenIntent = Intent.createChooser(intent, "Share the picture")
+//        startActivity(chosenIntent)
+//    }
+
 }
