@@ -6,7 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.avv2050soft.thousandandonewallpapers.data.BackgroundsPagingSource
+import com.avv2050soft.thousandandonewallpapers.data.WallpapersPagingSource
 import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.Hit
 import com.avv2050soft.thousandandonewallpapers.domain.repository.PixabayRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +20,6 @@ class WallpapersViewModel  @Inject constructor(
 
     val pageWallpapers: Flow<PagingData<Hit>> = Pager(
         config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = { BackgroundsPagingSource(repository) }
+        pagingSourceFactory = { WallpapersPagingSource(repository) }
     ).flow.cachedIn(viewModelScope)
 }

@@ -15,6 +15,7 @@ import com.avv2050soft.thousandandonewallpapers.databinding.FragmentWallpapersBi
 import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.Hit
 import com.avv2050soft.thousandandonewallpapers.presentation.adapters.CommonLoadStateAdapter
 import com.avv2050soft.thousandandonewallpapers.presentation.adapters.WallpapersAdapter
+import com.avv2050soft.thousandandonewallpapers.presentation.ui.categories.CATEGORY_NAME_KEY
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.checkDownloadPermission
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.downloadWalls
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.shareUrl
@@ -65,11 +66,11 @@ class WallpapersFragment : Fragment(R.layout.fragment_wallpapers) {
         )
     }
 
-    private fun onClickLike(hit: Hit, position : Int) {
-        if (hit.isFavorite){
+    private fun onClickLike(hit: Hit, position: Int) {
+        if (hit.isFavorite) {
             Favorites.list.remove(hit)
             hit.isFavorite = false
-        }else{
+        } else {
             Favorites.list.add(hit)
             hit.isFavorite = true
         }
@@ -88,8 +89,11 @@ class WallpapersFragment : Fragment(R.layout.fragment_wallpapers) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val categoryName = arguments?.getString(CATEGORY_NAME_KEY)
+        categoryName?.let { binding.textViewCategory.text = categoryName }
+
         val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
-        if (bottomNavView?.visibility == View.GONE){
+        if (bottomNavView?.visibility == View.GONE) {
             showAppbarAndBottomView(requireActivity())
         }
 
@@ -102,7 +106,6 @@ class WallpapersFragment : Fragment(R.layout.fragment_wallpapers) {
 
         viewModel.pageWallpapers.onEach {
             wallpapersAdapter.submitData(it)
-
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

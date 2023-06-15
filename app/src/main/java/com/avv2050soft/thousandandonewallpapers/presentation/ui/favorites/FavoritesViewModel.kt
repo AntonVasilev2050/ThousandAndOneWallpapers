@@ -10,9 +10,9 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val repository: PixabayRepository
-): ViewModel() {
+) : ViewModel() {
 
-    fun loadFavorites(): List<Hit>{
+    fun loadFavorites(): List<Hit> {
         return Favorites.list
     }
 

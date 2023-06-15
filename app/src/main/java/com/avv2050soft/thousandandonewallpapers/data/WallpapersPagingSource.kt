@@ -6,7 +6,7 @@ import com.avv2050soft.thousandandonewallpapers.domain.models.apiresponse.Hit
 import com.avv2050soft.thousandandonewallpapers.domain.repository.PixabayRepository
 import javax.inject.Inject
 
-class BackgroundsPagingSource @Inject constructor(
+class WallpapersPagingSource @Inject constructor(
     private val repository: PixabayRepository
 ) : PagingSource<Int, Hit>() {
 

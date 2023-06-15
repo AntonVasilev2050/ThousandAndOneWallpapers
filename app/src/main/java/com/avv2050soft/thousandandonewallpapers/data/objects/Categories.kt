@@ -13,6 +13,6 @@ object Categories {
         Category("New Year", R.drawable.category_new_year),
         Category("Office", R.drawable.category_office),
         Category("Season", R.drawable.category_season),
-
+        Category("All", R.drawable.category_all)
     )
 }

@@ -1,6 +1,7 @@
 package com.avv2050soft.thousandandonewallpapers.presentation.utils
 
 import android.Manifest
+import android.app.Activity
 import android.app.DownloadManager
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -21,6 +22,10 @@ fun Fragment.toast(@StringRes stringRes: Int) {
 
 fun Fragment.toastString(msg: String?) {
     Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+}
+
+fun Activity.toastString(msg: String?){
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
 
 fun Fragment.shareUrl(urlToShare: String?) {
