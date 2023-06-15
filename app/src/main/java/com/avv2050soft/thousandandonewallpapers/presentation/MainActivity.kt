@@ -1,13 +1,11 @@
 package com.avv2050soft.thousandandonewallpapers.presentation
 
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -22,6 +20,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.avv2050soft.thousandandonewallpapers.R
 import com.avv2050soft.thousandandonewallpapers.databinding.ActivityMainBinding
 import com.avv2050soft.thousandandonewallpapers.presentation.utils.toastString
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
