@@ -1,8 +1,8 @@
 # ThousandAndOneWallpapers
 Приложение использует https://pixabay.com/api. Для корректной работы в РФ необходимо подключить VPN.
 
-Видео демонстарация: 
-
+Видео демонстарация:
+https://drive.google.com/file/d/17Vg-DpK_fXw7fdHyJj6MKh0yc6INamku/view?usp=sharing
 
 Скриншоты:
 ![](Screenshot_20230615_141700.png)
